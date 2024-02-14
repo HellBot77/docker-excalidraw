@@ -6,12 +6,12 @@ RUN git clone https://github.com/excalidraw/excalidraw.git && \
     ([[ "$TAG" = "latest" ]] || git checkout ${TAG}) && \
     rm -rf .git
 
-FROM node:alpine AS build
+FROM node:20-alpine AS build
 
 WORKDIR /excalidraw
 COPY --from=base /git/excalidraw .
-ENV NODE_ENV=production
-RUN yarn && \
+RUN yarn --network-timeout 1000000 && \
+    export NODE_ENV=production && \
     yarn --cwd excalidraw-app build:app:docker
 
 FROM pierrezemb/gostatic
