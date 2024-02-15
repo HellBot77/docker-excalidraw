@@ -16,5 +16,5 @@ RUN yarn --network-timeout 1000000 && \
 
 FROM pierrezemb/gostatic
 
-COPY --from=build /excalidraw/excalidraw-app/build /srv/http
+COPY --from=build /excalidraw/build /srv/http
 EXPOSE 8043
