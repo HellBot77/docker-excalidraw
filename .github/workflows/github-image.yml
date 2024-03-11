@@ -40,8 +40,11 @@ jobs:
           ref: ${{ needs.get-tag.outputs.tag }}
       - name: Patch Dockerfile
         run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git fetch --unshallow
           if git ls-remote origin pull/7430/head; then
-            git pull --no-edit origin pull/7430/head
+            git pull --no-edit --no-rebase origin pull/7430/head
           fi
       - name: Set Docker Hub username
         id: dockerhub-username
