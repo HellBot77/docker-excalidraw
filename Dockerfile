@@ -14,7 +14,6 @@ RUN yarn --network-timeout 1000000 && \
     export NODE_ENV=production && \
     yarn --cwd excalidraw-app build:app:docker
 
-FROM pierrezemb/gostatic
+FROM lipanski/docker-static-website
 
-COPY --from=build /excalidraw/build /srv/http
-EXPOSE 8043
+COPY --from=build /excalidraw/build .
